@@ -9,7 +9,7 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
 	return (
-		<html lang="en">
+		<html suppressHydrationWarning lang="en">
 			<body>
 				<ThemeProvider
 					attribute="class"

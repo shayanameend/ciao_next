@@ -8,15 +8,16 @@ import { Button } from "~/components/ui/button";
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
 	FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { toast } from "~/components/ui/use-toast";
+import { OsType } from "~/lib/types";
 import { cn } from "~/lib/utils";
+import { requestSignIn } from "~/server/auth";
+import { toast } from "../ui/use-toast";
 
 const SignInFormSchema = z.object({
 	email: z.string().email().min(2, {
@@ -36,14 +37,19 @@ export function SignInForm() {
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof SignInFormSchema>) {
+	async function onSubmit(data: z.infer<typeof SignInFormSchema>) {
+		const response = await requestSignIn({
+			email: data.email,
+			password: data.password,
+			deviceType: OsType.WEB,
+			deviceToken: "qwertyuiop",
+		});
+
+		console.log(response);
+
 		toast({
-			title: "You submitted the following values:",
-			description: (
-				<pre className="mt-2 w-[340px] rounded-md p-4">
-					<code className="text-white">{JSON.stringify(data, null, 2)}</code>
-				</pre>
-			),
+			title: "User signed in successfully",
+			description: "Please check your email for verification",
 		});
 	}
 

@@ -14,8 +14,10 @@ import {
 	FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { toast } from "~/components/ui/use-toast";
+import { OsType, Roles } from "~/lib/types";
 import { cn } from "~/lib/utils";
+import { requestSignUp } from "~/server/auth";
+import { toast } from "../ui/use-toast";
 
 const SignUpFormSchema = z.object({
 	email: z.string().email().min(2, {
@@ -35,14 +37,20 @@ export function SignUpForm() {
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof SignUpFormSchema>) {
+	async function onSubmit(data: z.infer<typeof SignUpFormSchema>) {
+		const response = await requestSignUp({
+			email: data.email,
+			password: data.password,
+			role: Roles.USER,
+			deviceType: OsType.WEB,
+			deviceToken: "qwertyuiop",
+		});
+
+		console.log(response);
+
 		toast({
-			title: "You submitted the following values:",
-			description: (
-				<pre className="mt-2 w-[340px] rounded-md p-4">
-					<code className="text-white">{JSON.stringify(data, null, 2)}</code>
-				</pre>
-			),
+			title: "User registered successfully",
+			description: "Please check your email for verification",
 		});
 	}
 
