@@ -17,7 +17,7 @@ import { Input } from "~/components/ui/input";
 import { OsType, Roles } from "~/lib/types";
 import { cn } from "~/lib/utils";
 import { requestSignUp } from "~/server/auth";
-import { toast } from "../ui/use-toast";
+import { toast } from "~/components/ui/use-toast";
 
 const SignUpFormSchema = z.object({
 	email: z.string().email().min(2, {
@@ -46,11 +46,18 @@ export function SignUpForm() {
 			deviceToken: "qwertyuiop",
 		});
 
+		if (response.meta.status >= 200 && response.meta.status < 300) {
+			form.reset();
+		}
+
 		console.log(response);
 
 		toast({
-			title: "User registered successfully",
-			description: "Please check your email for verification",
+			variant:
+				response.meta.status >= 200 && response.meta.status < 300
+					? "success"
+					: "error",
+			title: response.meta.message,
 		});
 	}
 

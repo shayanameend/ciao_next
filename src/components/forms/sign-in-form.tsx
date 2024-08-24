@@ -17,7 +17,7 @@ import { Input } from "~/components/ui/input";
 import { OsType } from "~/lib/types";
 import { cn } from "~/lib/utils";
 import { requestSignIn } from "~/server/auth";
-import { toast } from "../ui/use-toast";
+import { toast } from "~/components/ui/use-toast";
 
 const SignInFormSchema = z.object({
 	email: z.string().email().min(2, {
@@ -45,11 +45,18 @@ export function SignInForm() {
 			deviceToken: "qwertyuiop",
 		});
 
+		if (response.meta.status >= 200 && response.meta.status < 300) {
+			form.reset();
+		}
+
 		console.log(response);
 
 		toast({
-			title: "User signed in successfully",
-			description: "Please check your email for verification",
+			variant:
+				response.meta.status >= 200 && response.meta.status < 300
+					? "success"
+					: "error",
+			title: response.meta.message,
 		});
 	}
 
@@ -85,7 +92,9 @@ export function SignInForm() {
 						</FormItem>
 					)}
 				/>
-				<Button className={cn("mt-6 block w-full")}>Sign In</Button>
+				<Button className={cn("mt-6 block w-full")} type="submit">
+					Sign In
+				</Button>
 			</form>
 		</Form>
 	);
