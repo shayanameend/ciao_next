@@ -1,9 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
 import { Button } from "~/components/ui/button";
 import {
 	Form,
@@ -14,10 +14,10 @@ import {
 	FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import { toast } from "~/components/ui/use-toast";
 import { OsType, Roles } from "~/lib/types";
 import { cn } from "~/lib/utils";
 import { requestSignUp } from "~/server/auth";
-import { toast } from "~/components/ui/use-toast";
 
 const SignUpFormSchema = z.object({
 	email: z.string().email().min(2, {
@@ -29,6 +29,8 @@ const SignUpFormSchema = z.object({
 });
 
 export function SignUpForm() {
+	const router = useRouter();
+
 	const form = useForm<z.infer<typeof SignUpFormSchema>>({
 		resolver: zodResolver(SignUpFormSchema),
 		defaultValues: {
@@ -46,18 +48,18 @@ export function SignUpForm() {
 			deviceToken: "qwertyuiop",
 		});
 
-		if (response.meta.status >= 200 && response.meta.status < 300) {
+		if (response.meta?.status >= 200 && response.meta?.status < 300) {
 			form.reset();
-		}
 
-		console.log(response);
+			router.push("/verification");
+		}
 
 		toast({
 			variant:
-				response.meta.status >= 200 && response.meta.status < 300
+				response.meta?.status >= 200 && response.meta?.status < 300
 					? "success"
 					: "error",
-			title: response.meta.message,
+			title: response.meta?.message,
 		});
 	}
 

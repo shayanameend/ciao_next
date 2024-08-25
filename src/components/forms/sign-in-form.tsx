@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { useRouter } from "next/navigation";
 import { Button } from "~/components/ui/button";
 import {
 	Form,
@@ -14,10 +15,10 @@ import {
 	FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import { toast } from "~/components/ui/use-toast";
 import { OsType } from "~/lib/types";
 import { cn } from "~/lib/utils";
 import { requestSignIn } from "~/server/auth";
-import { toast } from "~/components/ui/use-toast";
 
 const SignInFormSchema = z.object({
 	email: z.string().email().min(2, {
@@ -29,6 +30,8 @@ const SignInFormSchema = z.object({
 });
 
 export function SignInForm() {
+	const router = useRouter();
+
 	const form = useForm<z.infer<typeof SignInFormSchema>>({
 		resolver: zodResolver(SignInFormSchema),
 		defaultValues: {
@@ -48,8 +51,6 @@ export function SignInForm() {
 		if (response.meta.status >= 200 && response.meta.status < 300) {
 			form.reset();
 		}
-
-		console.log(response);
 
 		toast({
 			variant:

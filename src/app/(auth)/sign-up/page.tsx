@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { FaFacebook, FaGithub } from "react-icons/fa";
 import { SignUpForm } from "~/components/forms/sign-up-form";
 import { Button } from "~/components/ui/button";
 import {
@@ -9,14 +11,14 @@ import {
 } from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
 import { cn } from "~/lib/utils";
-import { FaGithub, FaFacebook } from "react-icons/fa";
-import Link from "next/link";
 
 export default function SignUpPage() {
 	return (
 		<Card className="mx-auto bg-background/65">
 			<CardHeader>
-				<CardTitle className="max-w-xs text-3xl">Create your account</CardTitle>
+				<CardTitle className="text-center text-3xl">
+					Create your account
+				</CardTitle>
 			</CardHeader>
 			<CardContent>
 				<SignUpForm />

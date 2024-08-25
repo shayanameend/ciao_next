@@ -13,6 +13,6 @@
 		}
 	},
 	"files": {
-		"ignore": ["node_modules", "public", "dist", "src/components/ui"]
+		"ignore": ["node_modules", ".next", "public", "src/components/ui"]
 	}
 }

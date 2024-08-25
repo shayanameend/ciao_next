@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { FaFacebook, FaGithub } from "react-icons/fa";
 import { SignInForm } from "~/components/forms/sign-in-form";
 import { Button } from "~/components/ui/button";
 import {
@@ -9,14 +11,12 @@ import {
 } from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
 import { cn } from "~/lib/utils";
-import { FaGithub, FaFacebook } from "react-icons/fa";
-import Link from "next/link";
 
 export default function SignInPage() {
 	return (
 		<Card className="mx-auto bg-background/65">
 			<CardHeader>
-				<CardTitle className="max-w-xs text-3xl">
+				<CardTitle className="text-center text-3xl">
 					Login to your account
 				</CardTitle>
 			</CardHeader>

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import "./globals.css";
 import { ThemeProvider } from "~/components/providers/theme-provider";
 import { Toaster } from "~/components/ui/toaster";
+import "~/app/globals.css";
 
 interface RootLayoutProps {
 	children: ReactNode;
