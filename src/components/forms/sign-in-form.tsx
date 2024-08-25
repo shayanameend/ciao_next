@@ -17,7 +17,7 @@ import { Input } from "~/components/ui/input";
 import { toast } from "~/components/ui/use-toast";
 import { OsType, ResponseMessages } from "~/lib/types";
 import { cn } from "~/lib/utils";
-import { requestSignIn } from "~/server/auth";
+import { signIn } from "~/server/auth";
 
 const SignInFormSchema = zod.object({
 	email: zod.string().email().min(2, {
@@ -40,7 +40,7 @@ export function SignInForm() {
 	});
 
 	async function onSubmit(data: zod.infer<typeof SignInFormSchema>) {
-		const response = await requestSignIn({
+		const response = await signIn({
 			email: data.email,
 			password: data.password,
 			deviceType: OsType.WEB,

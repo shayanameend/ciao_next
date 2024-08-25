@@ -17,7 +17,7 @@ import { Input } from "~/components/ui/input";
 import { toast } from "~/components/ui/use-toast";
 import { OsType, Roles } from "~/lib/types";
 import { cn } from "~/lib/utils";
-import { requestSignUp } from "~/server/auth";
+import { signUp } from "~/server/auth";
 
 const SignUpFormSchema = zod.object({
 	email: zod.string().email().min(2, {
@@ -40,7 +40,7 @@ export function SignUpForm() {
 	});
 
 	async function onSubmit(data: zod.infer<typeof SignUpFormSchema>) {
-		const response = await requestSignUp({
+		const response = await signUp({
 			email: data.email,
 			password: data.password,
 			role: Roles.USER,

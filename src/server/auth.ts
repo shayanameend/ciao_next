@@ -3,12 +3,13 @@
 import axios from "~/lib/axios";
 import { env } from "~/lib/env";
 import type {
+	CreateProfileBodyType,
 	LoginUserBodyType,
 	RegisterUserBodyType,
 	VerifyOTPBodyType,
 } from "~/validators/auth.validators";
 
-export async function requestSignUp({
+export async function signUp({
 	email,
 	password,
 	role,
@@ -37,7 +38,7 @@ export async function requestSignUp({
 	}
 }
 
-export async function requestVerifyOtp({
+export async function verifyOtp({
 	otpCode,
 	verificationType,
 }: VerifyOTPBodyType) {
@@ -67,7 +68,37 @@ export async function requestVerifyOtp({
 	}
 }
 
-export async function requestSignIn({
+export async function createProfile({ fullName, dob }: CreateProfileBodyType) {
+	try {
+		const response = await axios.post(
+			`${env.NEXT_PUBLIC_API_URL}/app/create-profile`,
+			{
+				fullName,
+				dob,
+			},
+		);
+		return response.data;
+	} catch (error) {
+		if (axios.isAxiosError(error)) {
+			return (
+				error.response?.data || {
+					meta: {
+						message: "An error occurred during profile creation",
+						status: error.response?.status,
+					},
+				}
+			);
+		}
+		return {
+			meta: {
+				message: "An unexpected error occurred",
+				status: 500,
+			},
+		};
+	}
+}
+
+export async function signIn({
 	email,
 	password,
 	deviceType,

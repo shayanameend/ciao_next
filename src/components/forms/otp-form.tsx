@@ -16,7 +16,7 @@ import { Input } from "~/components/ui/input";
 import { toast } from "~/components/ui/use-toast";
 import { OtpType } from "~/lib/types";
 import { cn } from "~/lib/utils";
-import { requestVerifyOtp } from "~/server/auth";
+import { verifyOtp } from "~/server/auth";
 
 const OtpFormSchema = zod.object({
 	otp: zod.string().min(6, {
@@ -33,7 +33,7 @@ export function OtpForm() {
 	});
 
 	async function onSubmit(data: zod.infer<typeof OtpFormSchema>) {
-		const response = await requestVerifyOtp({
+		const response = await verifyOtp({
 			otpCode: data.otp,
 			verificationType: OtpType.REGISTRATION,
 		});
