@@ -15,7 +15,7 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { toast } from "~/components/ui/use-toast";
-import { OsType } from "~/lib/types";
+import { OsType, ResponseMessages } from "~/lib/types";
 import { cn } from "~/lib/utils";
 import { requestSignIn } from "~/server/auth";
 
@@ -52,13 +52,13 @@ export function SignInForm() {
 		}
 
 		switch (response.meta.message) {
-			case "User not verified":
+			case ResponseMessages.USER_NOT_VERIFIED:
 				return router.push("/verification");
 
-			case "Profile not found":
+			case ResponseMessages.PROFILE_NOT_FOUND:
 				return router.push("/profile/create");
 
-			case "User logged in successfully":
+			case ResponseMessages.USER_LOGGED_IN_SUCCESSFULLY:
 				return router.push("/");
 		}
 
