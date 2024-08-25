@@ -1,4 +1,5 @@
-import axios from "axios";
+import { default as axios } from "axios";
+
 import { authStore } from "~/stores/auth";
 
 axios.interceptors.request.use(
@@ -31,4 +32,4 @@ axios.interceptors.response.use(
 	},
 );
 
-export default axios;
+export { axios };

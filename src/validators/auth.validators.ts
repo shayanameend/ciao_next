@@ -141,7 +141,7 @@ export const createProfileBodySchema = zod.object({
 		message: "Full name is required",
 	}),
 	dob: zod.date({
-		message: "Date of birth is required",
+		required_error: "Date of birth is required",
 	}),
 });
 

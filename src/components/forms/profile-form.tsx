@@ -19,8 +19,12 @@ import { toast } from "~/components/ui/use-toast";
 import { cn } from "~/lib/utils";
 import { createProfile } from "~/server/auth";
 import { createProfileBodySchema } from "~/validators/auth.validators";
-import { Calendar } from "../ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Calendar } from "~/components/ui/calendar";
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "~/components/ui/popover";
 
 const ProfileFormSchema = createProfileBodySchema;
 
@@ -29,7 +33,7 @@ export function ProfileForm() {
 		resolver: zodResolver(ProfileFormSchema),
 		defaultValues: {
 			fullName: "",
-			dob: new Date(),
+			dob: undefined,
 		},
 	});
 

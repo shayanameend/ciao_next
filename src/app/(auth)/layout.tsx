@@ -1,11 +1,6 @@
-import { Pacifico } from "next/font/google";
 import type { ReactNode } from "react";
 import { WavyBackground } from "~/components/ui/wavy-background";
-
-const pacifico = Pacifico({
-	weight: "400",
-	subsets: ["latin"],
-});
+import { primaryFont } from "~/lib/fonts";
 
 interface AuthLayoutProps {
 	children: ReactNode;
@@ -21,7 +16,7 @@ export default function AuthLayout({ children }: Readonly<AuthLayoutProps>) {
 				<section className="flex flex-col">
 					<h2
 						className="text-5xl font-bold text-primary"
-						style={pacifico.style}
+						style={primaryFont.style}
 					>
 						Ciao.
 					</h2>

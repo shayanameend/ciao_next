@@ -7,6 +7,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "~/components/ui/card";
+import { routes } from "~/lib/routes";
 
 export default function ProfilePage() {
 	return (
@@ -22,7 +23,7 @@ export default function ProfilePage() {
 			<CardFooter className="flex flex-col items-center">
 				<p className="text-xs">
 					Already have an account?{" "}
-					<Link className="text-primary" href="/sign-in">
+					<Link className="text-primary" href={routes.auth.signIn}>
 						Sign In
 					</Link>
 				</p>

@@ -1,6 +1,6 @@
 "use server";
 
-import axios from "~/lib/axios";
+import { axios } from "~/lib/axios";
 import { env } from "~/lib/env";
 import type {
 	CreateProfileBodyType,

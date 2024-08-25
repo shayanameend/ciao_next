@@ -18,6 +18,7 @@ import { toast } from "~/components/ui/use-toast";
 import { OsType, ResponseMessages } from "~/lib/types";
 import { cn } from "~/lib/utils";
 import { signIn } from "~/server/auth";
+import { routes } from "~/lib/routes";
 
 const SignInFormSchema = zod.object({
 	email: zod.string().email().min(2, {
@@ -53,13 +54,13 @@ export function SignInForm() {
 
 		switch (response.meta.message) {
 			case ResponseMessages.USER_NOT_VERIFIED:
-				return router.push("/verification");
+				return router.push(routes.auth.verification);
 
 			case ResponseMessages.PROFILE_NOT_FOUND:
-				return router.push("/profile/create");
+				return router.push(routes.auth.createProfile);
 
 			case ResponseMessages.USER_LOGGED_IN_SUCCESSFULLY:
-				return router.push("/");
+				return router.push("/dashboard");
 		}
 
 		toast({
