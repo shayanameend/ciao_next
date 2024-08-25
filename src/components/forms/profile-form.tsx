@@ -3,9 +3,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import type * as zod from "zod";
 import { Button } from "~/components/ui/button";
+import { Calendar } from "~/components/ui/calendar";
 import {
 	Form,
 	FormControl,
@@ -15,20 +17,22 @@ import {
 	FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { toast } from "~/components/ui/use-toast";
-import { cn } from "~/lib/utils";
-import { createProfile } from "~/server/auth";
-import { createProfileBodySchema } from "~/validators/auth.validators";
-import { Calendar } from "~/components/ui/calendar";
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from "~/components/ui/popover";
+import { toast } from "~/components/ui/use-toast";
+import { ResponseMessages } from "~/lib/types";
+import { cn } from "~/lib/utils";
+import { createProfile } from "~/server/auth";
+import { createProfileBodySchema } from "~/validators/auth.validators";
 
 const ProfileFormSchema = createProfileBodySchema;
 
 export function ProfileForm() {
+	const router = useRouter();
+
 	const form = useForm<zod.infer<typeof ProfileFormSchema>>({
 		resolver: zodResolver(ProfileFormSchema),
 		defaultValues: {
@@ -45,6 +49,11 @@ export function ProfileForm() {
 
 		if (response.meta.status >= 200 && response.meta.status < 300) {
 			form.reset();
+		}
+
+		switch (response.meta.message) {
+			case ResponseMessages.PROFILE_CREATED_SUCCESSFULLY:
+				return router.push("/dashboard");
 		}
 
 		toast({

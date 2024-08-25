@@ -15,10 +15,10 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { toast } from "~/components/ui/use-toast";
+import { routes } from "~/lib/routes";
 import { OsType, ResponseMessages } from "~/lib/types";
 import { cn } from "~/lib/utils";
 import { signIn } from "~/server/auth";
-import { routes } from "~/lib/routes";
 
 const SignInFormSchema = zod.object({
 	email: zod.string().email().min(2, {
