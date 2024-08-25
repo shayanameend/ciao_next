@@ -11,12 +11,7 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
 	return (
 		<html suppressHydrationWarning lang="en">
 			<body>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="dark"
-					enableSystem
-					disableTransitionOnChange
-				>
+				<ThemeProvider enableSystem defaultTheme="system" attribute="class">
 					{children}
 					<Toaster />
 				</ThemeProvider>

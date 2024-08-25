@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { default as Link } from "next/link";
 import { FaFacebook, FaGithub } from "react-icons/fa";
 import { SignInForm } from "~/components/forms/sign-in-form";
 import { Button } from "~/components/ui/button";

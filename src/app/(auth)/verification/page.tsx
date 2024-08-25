@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { default as Link } from "next/link";
 import { OtpForm } from "~/components/forms/otp-form";
 import {
 	Card,
