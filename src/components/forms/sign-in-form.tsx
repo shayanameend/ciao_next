@@ -1,10 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import * as zod from "zod";
 import { Button } from "~/components/ui/button";
 import {
 	Form,
@@ -20,11 +19,11 @@ import { OsType } from "~/lib/types";
 import { cn } from "~/lib/utils";
 import { requestSignIn } from "~/server/auth";
 
-const SignInFormSchema = z.object({
-	email: z.string().email().min(2, {
+const SignInFormSchema = zod.object({
+	email: zod.string().email().min(2, {
 		message: "Email must be at least 2 characters.",
 	}),
-	password: z.string().min(8, {
+	password: zod.string().min(8, {
 		message: "Password must be at least 8 characters.",
 	}),
 });
@@ -32,7 +31,7 @@ const SignInFormSchema = z.object({
 export function SignInForm() {
 	const router = useRouter();
 
-	const form = useForm<z.infer<typeof SignInFormSchema>>({
+	const form = useForm<zod.infer<typeof SignInFormSchema>>({
 		resolver: zodResolver(SignInFormSchema),
 		defaultValues: {
 			email: "",
@@ -40,7 +39,7 @@ export function SignInForm() {
 		},
 	});
 
-	async function onSubmit(data: z.infer<typeof SignInFormSchema>) {
+	async function onSubmit(data: zod.infer<typeof SignInFormSchema>) {
 		const response = await requestSignIn({
 			email: data.email,
 			password: data.password,
@@ -50,6 +49,17 @@ export function SignInForm() {
 
 		if (response.meta.status >= 200 && response.meta.status < 300) {
 			form.reset();
+		}
+
+		switch (response.meta.message) {
+			case "User not verified":
+				return router.push("/verification");
+
+			case "Profile not found":
+				return router.push("/profile/create");
+
+			case "User logged in successfully":
+				return router.push("/");
 		}
 
 		toast({

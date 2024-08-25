@@ -13,7 +13,10 @@ interface AuthLayoutProps {
 
 export default function AuthLayout({ children }: Readonly<AuthLayoutProps>) {
 	return (
-		<WavyBackground colors={["#0ea5e9", "#e2e8f0", "#ef4444"]}>
+		<WavyBackground
+			backgroundFill="transparent"
+			colors={["#0ea5e9", "#e2e8f0", "#ef4444"]}
+		>
 			<main className="h-screen flex flex-col gap-8 justify-center items-center">
 				<section className="flex flex-col">
 					<h2

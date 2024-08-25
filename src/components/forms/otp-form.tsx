@@ -2,8 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-
+import * as zod from "zod";
 import { Button } from "~/components/ui/button";
 import {
 	Form,
@@ -19,21 +18,21 @@ import { OtpType } from "~/lib/types";
 import { cn } from "~/lib/utils";
 import { requestVerifyOtp } from "~/server/auth";
 
-const OtpFormSchema = z.object({
-	otp: z.string().min(6, {
+const OtpFormSchema = zod.object({
+	otp: zod.string().min(6, {
 		message: "OTP must be at least 6 characters.",
 	}),
 });
 
 export function OtpForm() {
-	const form = useForm<z.infer<typeof OtpFormSchema>>({
+	const form = useForm<zod.infer<typeof OtpFormSchema>>({
 		resolver: zodResolver(OtpFormSchema),
 		defaultValues: {
 			otp: "",
 		},
 	});
 
-	async function onSubmit(data: z.infer<typeof OtpFormSchema>) {
+	async function onSubmit(data: zod.infer<typeof OtpFormSchema>) {
 		const response = await requestVerifyOtp({
 			otpCode: data.otp,
 			verificationType: OtpType.REGISTRATION,

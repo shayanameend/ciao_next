@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import * as zod from "zod";
 import { Button } from "~/components/ui/button";
 import {
 	Form,
@@ -19,11 +19,11 @@ import { OsType, Roles } from "~/lib/types";
 import { cn } from "~/lib/utils";
 import { requestSignUp } from "~/server/auth";
 
-const SignUpFormSchema = z.object({
-	email: z.string().email().min(2, {
+const SignUpFormSchema = zod.object({
+	email: zod.string().email().min(2, {
 		message: "Username must be at least 2 characters.",
 	}),
-	password: z.string().min(8, {
+	password: zod.string().min(8, {
 		message: "Password must be at least 8 characters.",
 	}),
 });
@@ -31,7 +31,7 @@ const SignUpFormSchema = z.object({
 export function SignUpForm() {
 	const router = useRouter();
 
-	const form = useForm<z.infer<typeof SignUpFormSchema>>({
+	const form = useForm<zod.infer<typeof SignUpFormSchema>>({
 		resolver: zodResolver(SignUpFormSchema),
 		defaultValues: {
 			email: "",
@@ -39,7 +39,7 @@ export function SignUpForm() {
 		},
 	});
 
-	async function onSubmit(data: z.infer<typeof SignUpFormSchema>) {
+	async function onSubmit(data: zod.infer<typeof SignUpFormSchema>) {
 		const response = await requestSignUp({
 			email: data.email,
 			password: data.password,
