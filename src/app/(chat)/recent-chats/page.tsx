@@ -5,19 +5,18 @@ import { useRecentChats } from "~/hooks/use-recent-chats";
 import events from "~/lib/events";
 
 export default function RecentChatsPage() {
-	const {
-		isConnected,
-		error,
-		instance,
-		online,
-		offline,
-		privateChats,
-		groupChats,
-	} = useRecentChats();
+	const { isConnected, error, instance, online, privateChats, groupChats } =
+		useRecentChats();
 
 	useEffect(() => {
-		console.log(online, offline, privateChats, groupChats);
-	}, [online, offline, privateChats, groupChats]);
+		console.log(
+			{ isConnected },
+			{ error },
+			{ online },
+			{ privateChats },
+			{ groupChats },
+		);
+	}, [isConnected, error, online, privateChats, groupChats]);
 
 	useEffect(() => {
 		if (isConnected && instance) {
