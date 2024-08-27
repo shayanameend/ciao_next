@@ -1,16 +1,7 @@
-import { persistentMap } from "@nanostores/persistent";
-import { onMount } from "nanostores";
+import { map } from "nanostores";
 
-export const authStore = persistentMap<{
-	token: string | undefined;
-}>("$auth", {
-	token: undefined,
-});
-
-onMount(authStore, () => {
-	console.log("authStore mounted");
-});
-
-authStore.subscribe((value) => {
-	console.log(value);
+export const authStore = map<{
+	token: string | null;
+}>({
+	token: null,
 });
