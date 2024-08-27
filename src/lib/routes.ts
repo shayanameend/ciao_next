@@ -9,4 +9,9 @@ export const routes = {
 		logout: "/logout",
 		changePassword: "/change-password",
 	},
+	chats: {
+		recentChats: "/recent-chats",
+		privateChat: "/private-chat",
+		groupChat: "/group-chat",
+	},
 };

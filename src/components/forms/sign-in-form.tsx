@@ -60,7 +60,7 @@ export function SignInForm() {
 				return router.push(routes.auth.createProfile);
 
 			case ResponseMessages.USER_LOGGED_IN_SUCCESSFULLY:
-				return router.push("/dashboard");
+				return router.push(routes.chats.recentChats);
 		}
 
 		toast({

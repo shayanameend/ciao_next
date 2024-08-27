@@ -23,6 +23,7 @@ import {
 	PopoverTrigger,
 } from "~/components/ui/popover";
 import { toast } from "~/components/ui/use-toast";
+import { routes } from "~/lib/routes";
 import { ResponseMessages } from "~/lib/types";
 import { cn } from "~/lib/utils";
 import { createProfile } from "~/server/auth";
@@ -53,7 +54,7 @@ export function ProfileForm() {
 
 		switch (response.meta.message) {
 			case ResponseMessages.PROFILE_CREATED_SUCCESSFULLY:
-				return router.push("/dashboard");
+				return router.push(routes.chats.recentChats);
 		}
 
 		toast({
