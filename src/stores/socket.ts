@@ -1,5 +1,6 @@
 import { map, onMount } from "nanostores";
 import { type Socket, io } from "socket.io-client";
+import { toast } from "~/components/ui/use-toast";
 import { default as events } from "~/lib/events";
 
 export const socketStore = map<{
@@ -26,6 +27,11 @@ onMount(socketStore, () => {
 
 		socketStore.setKey("isConnected", true);
 		socketStore.setKey("error", null);
+
+		toast({
+			title: "Socket Connection",
+			description: "Connected",
+		});
 	});
 
 	socket.on(events.socket.connectError, (error) => {
@@ -33,12 +39,22 @@ onMount(socketStore, () => {
 
 		socketStore.setKey("isConnected", false);
 		socketStore.setKey("error", error?.message || "Connection Error");
+
+		toast({
+			title: "Socket Error",
+			description: error,
+		});
 	});
 
 	socket.on(events.socket.error, (error) => {
 		console.error(error);
 
 		socketStore.setKey("error", error?.message || "Unknown Error");
+
+		toast({
+			title: "Socket Error",
+			description: error,
+		});
 	});
 
 	socket.on(events.socket.disconnect, () => {

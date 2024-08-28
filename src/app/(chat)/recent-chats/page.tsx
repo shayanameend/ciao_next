@@ -3,20 +3,27 @@
 import { useEffect } from "react";
 import { useRecentChats } from "~/hooks/use-recent-chats";
 import events from "~/lib/events";
+import { RecentsChats } from "./_components/recents-chats";
 
 export default function RecentChatsPage() {
-	const { isConnected, error, instance, online, privateChats, groupChats } =
-		useRecentChats();
+	const {
+		isConnected,
+		error,
+		instance,
+		onlineUsers,
+		privateChats,
+		groupChats,
+	} = useRecentChats();
 
 	useEffect(() => {
 		console.log(
 			{ isConnected },
 			{ error },
-			{ online },
+			{ onlineUsers },
 			{ privateChats },
 			{ groupChats },
 		);
-	}, [isConnected, error, online, privateChats, groupChats]);
+	}, [isConnected, error, onlineUsers, privateChats, groupChats]);
 
 	useEffect(() => {
 		if (isConnected && instance) {
@@ -30,9 +37,21 @@ export default function RecentChatsPage() {
 		};
 	}, [isConnected, instance]);
 
+	useEffect(() => {
+		console.log({
+			privateChats: privateChats[0]?.members.find(
+				(member) => member.id !== onlineUsers[0].id,
+			)?.fullName,
+		});
+	}, [privateChats, onlineUsers]);
+
 	return (
-		<div>
-			<h1>Recent Chats</h1>
-		</div>
+		<section>
+			<RecentsChats
+				onlineUsers={onlineUsers}
+				privateChats={privateChats}
+				groupChats={groupChats}
+			/>
+		</section>
 	);
 }
