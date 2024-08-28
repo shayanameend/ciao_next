@@ -34,7 +34,7 @@ export function RecentsChats({
 			</CardHeader>
 			<CardContent className="grid gap-6">
 				{privateChats.map((chat) => {
-					const fullName = chat.members.find(
+					const chatName = chat.members.find(
 						(member) => member.id !== onlineUsers[0]?.id,
 					)?.fullName;
 
@@ -50,10 +50,10 @@ export function RecentsChats({
 						>
 							<div className="flex items-center space-x-4">
 								<Avatar className="h-8 w-8">
-									<AvatarFallback>{fullName?.[0]}</AvatarFallback>
+									<AvatarFallback>{chatName?.[0]}</AvatarFallback>
 								</Avatar>
 								<div>
-									<p className="text-sm font-medium leading-none">{fullName}</p>
+									<p className="text-sm font-medium leading-none">{chatName}</p>
 									<p className="text-sm text-muted-foreground">{lastMessage}</p>
 								</div>
 							</div>
