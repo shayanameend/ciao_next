@@ -29,12 +29,24 @@ export async function signUp({
 		);
 		return response.data;
 	} catch (error) {
+		console.error(error);
+
 		if (axios.isAxiosError(error)) {
 			return (
-				error.response?.data || { error: "An error occurred during sign up" }
+				error.response?.data || {
+					meta: {
+						message: "An error occurred during sign up",
+						status: error.response?.status,
+					},
+				}
 			);
 		}
-		return { error: "An unexpected error occurred" };
+		return {
+			meta: {
+				message: "An unexpected error occurred",
+				status: 500,
+			},
+		};
 	}
 }
 
@@ -49,6 +61,8 @@ export async function verifyOtp({
 		});
 		return response.data;
 	} catch (error) {
+		console.error(error);
+
 		if (axios.isAxiosError(error)) {
 			return (
 				error.response?.data || {
@@ -79,6 +93,8 @@ export async function createProfile({ fullName, dob }: CreateProfileBodyType) {
 		);
 		return response.data;
 	} catch (error) {
+		console.error(error);
+
 		if (axios.isAxiosError(error)) {
 			return (
 				error.response?.data || {
@@ -113,6 +129,8 @@ export async function signIn({
 		});
 		return response.data;
 	} catch (error) {
+		console.error(error);
+
 		if (axios.isAxiosError(error)) {
 			return (
 				error.response?.data || {

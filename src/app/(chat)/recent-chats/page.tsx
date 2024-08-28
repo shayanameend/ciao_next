@@ -37,16 +37,8 @@ export default function RecentChatsPage() {
 		};
 	}, [isConnected, instance]);
 
-	useEffect(() => {
-		console.log({
-			privateChats: privateChats[0]?.members.find(
-				(member) => member.id !== onlineUsers[0].id,
-			)?.fullName,
-		});
-	}, [privateChats, onlineUsers]);
-
 	return (
-		<section>
+		<section className="py-6 px-4">
 			<RecentsChats
 				onlineUsers={onlineUsers}
 				privateChats={privateChats}

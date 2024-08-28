@@ -30,7 +30,7 @@ export function RecentsChats({
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>Chats</CardTitle>
+				<CardTitle>Recent Chats</CardTitle>
 			</CardHeader>
 			<CardContent className="grid gap-6">
 				{privateChats.map((chat) => (
@@ -40,13 +40,19 @@ export function RecentsChats({
 					>
 						<div className="flex items-center space-x-4">
 							<Avatar className="h-8 w-8">
-								<AvatarFallback>OM</AvatarFallback>
+								<AvatarFallback>
+									{
+										chat.members.find(
+											(member) => member.id !== onlineUsers[0]?.id,
+										)?.fullName?.[0]
+									}
+								</AvatarFallback>
 							</Avatar>
 							<div>
 								<p className="text-sm font-medium leading-none">
 									{
 										chat.members.find(
-											(member) => member.id !== onlineUsers[0].id,
+											(member) => member.id !== onlineUsers[0]?.id,
 										)?.fullName
 									}
 								</p>
