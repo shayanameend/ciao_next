@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import events from "~/lib/events";
 import {
 	privateChatStore,
+	updatePrivateChat,
 	updatePrivateChatMessage,
 	updatePrivateChatMessages,
 } from "~/stores/private-chat";
@@ -31,9 +32,20 @@ export function usePrivateChat({ roomId }: { roomId: string }) {
 
 	useEffect(() => {
 		if (instance && isConnected) {
-			instance.emit(events.privateChat.room.join, {
-				roomId,
-			});
+			instance
+				.emitWithAck(events.privateChat.room.join, {
+					roomId,
+				})
+				.then(({ data, error }) => {
+					if (error) {
+						throw new Error(error);
+					}
+
+					updatePrivateChat(data);
+				})
+				.catch((error) => {
+					console.error(error);
+				});
 		}
 
 		return () => {

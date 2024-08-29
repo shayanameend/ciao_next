@@ -4,7 +4,7 @@ import type { ChatRoomResponse, Message } from "~/validators/chat.validators";
 export const privateChatStore = map<ChatRoomResponse>();
 
 export function updatePrivateChat(chat: ChatRoomResponse) {
-	privateChatStore.set(chat);
+	privateChatStore.setKey("room", chat.room);
 }
 
 export function updatePrivateChatMessages(messages: Message[]) {
