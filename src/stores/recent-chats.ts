@@ -1,10 +1,16 @@
 import { map } from "nanostores";
 import type { RecentChatsResponse } from "~/validators/chat.validators";
 
-export const recentChatsStore = map<RecentChatsResponse>({
+export const recentChatsStore = map<{
+	onlineUsers: RecentChatsResponse["onlineUsers"];
+	privateChats: RecentChatsResponse["privateChats"];
+	groupChats: RecentChatsResponse["groupChats"];
+	isJoined: boolean;
+}>({
 	onlineUsers: [],
 	privateChats: [],
 	groupChats: [],
+	isJoined: false,
 });
 
 export function updateOnlineUsers({

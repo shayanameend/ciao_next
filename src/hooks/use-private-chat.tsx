@@ -11,7 +11,7 @@ import { socketStore } from "~/stores/socket";
 
 export function usePrivateChat({ roomId }: { roomId: string }) {
 	const { isConnected, error, instance } = useStore(socketStore);
-	const { room } = useStore(privateChatStore);
+	const { room, isJoined } = useStore(privateChatStore);
 
 	useEffect(() => {
 		if (instance) {
@@ -31,7 +31,7 @@ export function usePrivateChat({ roomId }: { roomId: string }) {
 	}, [instance]);
 
 	useEffect(() => {
-		if (instance && isConnected) {
+		if (instance && isConnected && !isJoined) {
 			instance
 				.emitWithAck(events.privateChat.room.join, {
 					roomId,
@@ -41,21 +41,27 @@ export function usePrivateChat({ roomId }: { roomId: string }) {
 						throw new Error(error);
 					}
 
+					privateChatStore.setKey("isJoined", true);
+
 					updatePrivateChat(data);
 				})
 				.catch((error) => {
+					privateChatStore.setKey("isJoined", false);
+
 					console.error(error);
 				});
 		}
 
 		return () => {
-			if (instance && isConnected) {
+			if (instance && isConnected && isJoined) {
 				instance.emit(events.privateChat.room.leave, {
 					roomId,
 				});
+
+				privateChatStore.setKey("isJoined", false);
 			}
 		};
-	}, [instance, isConnected, roomId]);
+	}, [instance, isConnected, isJoined, roomId]);
 
 	return {
 		isConnected,

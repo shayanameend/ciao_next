@@ -1,7 +1,13 @@
 import { map } from "nanostores";
 import type { ChatRoomResponse, Message } from "~/validators/chat.validators";
 
-export const privateChatStore = map<ChatRoomResponse>();
+export const privateChatStore = map<{
+	room: ChatRoomResponse["room"] | null;
+	isJoined: boolean;
+}>({
+	room: null,
+	isJoined: false,
+});
 
 export function updatePrivateChat(chat: ChatRoomResponse) {
 	privateChatStore.setKey("room", chat.room);

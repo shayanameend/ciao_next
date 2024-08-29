@@ -12,7 +12,8 @@ import { socketStore } from "~/stores/socket";
 
 export function useRecentChats() {
 	const { isConnected, error, instance } = useStore(socketStore);
-	const { onlineUsers, privateChats, groupChats } = useStore(recentChatsStore);
+	const { onlineUsers, privateChats, groupChats, isJoined } =
+		useStore(recentChatsStore);
 
 	useEffect(() => {
 		if (instance) {
@@ -33,16 +34,16 @@ export function useRecentChats() {
 	}, [instance]);
 
 	useEffect(() => {
-		if (isConnected && instance) {
+		if (isConnected && instance && !isJoined) {
 			instance.emit(events.recentChats.room.join);
 		}
 
 		return () => {
-			if (isConnected && instance) {
+			if (isConnected && instance && isJoined) {
 				instance.emit(events.recentChats.room.leave);
 			}
 		};
-	}, [instance, isConnected]);
+	}, [instance, isConnected, isJoined]);
 
 	return {
 		isConnected,
