@@ -34,12 +34,12 @@ export function useRecentChats() {
 	}, [instance]);
 
 	useEffect(() => {
-		if (isConnected && instance && !isJoined) {
+		if (instance && isConnected && !isJoined) {
 			instance.emit(events.recentChats.room.join);
 		}
 
 		return () => {
-			if (isConnected && instance && isJoined) {
+			if (instance && isConnected && isJoined) {
 				instance.emit(events.recentChats.room.leave);
 			}
 		};
