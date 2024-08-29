@@ -1,6 +1,6 @@
 import { useStore } from "@nanostores/react";
 import { useEffect } from "react";
-import events from "~/lib/events";
+import { default as events } from "~/lib/events";
 import {
 	recentChatsStore,
 	updateGroupChats,
@@ -31,6 +31,18 @@ export function useRecentChats() {
 			}
 		};
 	}, [instance]);
+
+	useEffect(() => {
+		if (isConnected && instance) {
+			instance.emit(events.recentChats.room.join);
+		}
+
+		return () => {
+			if (isConnected && instance) {
+				instance.emit(events.recentChats.room.leave);
+			}
+		};
+	}, [instance, isConnected]);
 
 	return {
 		isConnected,

@@ -11,7 +11,7 @@ export const routes = {
 	},
 	chats: {
 		recentChats: "/recent-chats",
-		privateChat: "/private-chat",
-		groupChat: "/group-chat",
+		privateChat: (id: string) => `/private-chat/${id}`,
+		groupChat: (id: string) => `/group-chat/${id}`,
 	},
 };

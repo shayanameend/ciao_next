@@ -46,13 +46,12 @@ export const RecentChatsResponseSchema = zod.object({
 	),
 });
 
-export const ChatRoomJoinResponseSchema = zod.object({
+export const ChatRoomResponseSchema = zod.object({
 	room: zod.nullable(
 		zod.object({
 			id: zod.string(),
 			members: zod.array(ProfileSchema),
 			messages: zod.array(MessageSchema),
-			group: zod.nullable(GroupSchema),
 		}),
 	),
 });
@@ -61,4 +60,4 @@ export type Profile = zod.infer<typeof ProfileSchema>;
 export type Message = zod.infer<typeof MessageSchema>;
 export type Group = zod.infer<typeof GroupSchema>;
 export type RecentChatsResponse = zod.infer<typeof RecentChatsResponseSchema>;
-export type ChatRoomJoinResponse = zod.infer<typeof ChatRoomJoinResponseSchema>;
+export type ChatRoomResponse = zod.infer<typeof ChatRoomResponseSchema>;

@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronDownIcon } from "lucide-react";
+import { default as Link } from "next/link";
 import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
@@ -15,6 +16,7 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "~/components/ui/popover";
+import { routes } from "~/lib/routes";
 import type { RecentChatsResponse } from "~/validators/chat.validators";
 
 const options = [
@@ -44,8 +46,9 @@ export function RecentsChats({
 							: chat.messages[0]?.text;
 
 					return (
-						<div
+						<Link
 							key={chat.id}
+							href={routes.chats.privateChat(chat.id)}
 							className="flex items-center justify-between space-x-4"
 						>
 							<div className="flex items-center space-x-4">
@@ -82,7 +85,7 @@ export function RecentsChats({
 									</Command>
 								</PopoverContent>
 							</Popover>
-						</div>
+						</Link>
 					);
 				})}
 			</CardContent>

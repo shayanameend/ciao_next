@@ -25,6 +25,7 @@ export default {
 		archive: "private_chat:archive",
 		delete: "private_chat:delete",
 		room: {
+			create: "private_chat:room:create",
 			join: "private_chat:room:join",
 			leave: "private_chat:room:leave",
 		},
@@ -42,12 +43,12 @@ export default {
 		},
 	},
 	groupChat: {
-		create: "group_chat:create",
 		join: "group_chat:join",
 		leave: "group_chat:leave",
 		archive: "group_chat:archive",
 		delete: "group_chat:delete",
 		room: {
+			create: "group_chat:room:create",
 			join: "group_chat:room:join",
 			leave: "group_chat:room:leave",
 		},
