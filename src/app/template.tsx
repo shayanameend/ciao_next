@@ -1,5 +1,6 @@
 import { Transition } from "~/components/common/transition";
+import type { PropsWithChildren } from "react";
 
-export default function Template({ children }: { children: React.ReactNode }) {
+export default function Template({ children }: Readonly<PropsWithChildren>) {
 	return <Transition>{children}</Transition>;
 }

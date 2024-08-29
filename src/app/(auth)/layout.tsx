@@ -1,12 +1,8 @@
-import type { ReactNode } from "react";
+import type { PropsWithChildren } from "react";
 import { WavyBackground } from "~/components/ui/wavy-background";
 import { primaryFont } from "~/lib/fonts";
 
-interface AuthLayoutProps {
-	children: ReactNode;
-}
-
-export default function AuthLayout({ children }: Readonly<AuthLayoutProps>) {
+export default function AuthLayout({ children }: Readonly<PropsWithChildren>) {
 	return (
 		<WavyBackground
 			backgroundFill="transparent"
