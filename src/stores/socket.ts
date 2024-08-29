@@ -14,7 +14,7 @@ export const socketStore = map<{
 });
 
 onMount(socketStore, () => {
-	if (typeof window === "undefined") {
+	if (typeof window === "undefined" || socketStore.get().isConnected) {
 		return;
 	}
 
