@@ -36,11 +36,15 @@ export function useRecentChats() {
 	useEffect(() => {
 		if (instance && isConnected && !isJoined) {
 			instance.emit(events.recentChats.room.join);
+
+			recentChatsStore.setKey("isJoined", true);
 		}
 
 		return () => {
 			if (instance && isConnected && isJoined) {
 				instance.emit(events.recentChats.room.leave);
+
+				recentChatsStore.setKey("isJoined", false);
 			}
 		};
 	}, [instance, isConnected, isJoined]);
@@ -49,6 +53,7 @@ export function useRecentChats() {
 		isConnected,
 		error,
 		instance,
+		isJoined,
 		onlineUsers,
 		privateChats,
 		groupChats,

@@ -67,6 +67,7 @@ export function usePrivateChat({ roomId }: { roomId: string }) {
 		isConnected,
 		error,
 		instance,
+		isJoined,
 		room,
 	};
 }
