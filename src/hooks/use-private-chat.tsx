@@ -1,6 +1,6 @@
 import { useStore } from "@nanostores/react";
 import { useEffect } from "react";
-import events from "~/lib/events";
+import { default as events } from "~/lib/events";
 import {
 	privateChatStore,
 	updatePrivateChat,
