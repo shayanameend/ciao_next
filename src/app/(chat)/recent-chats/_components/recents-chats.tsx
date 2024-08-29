@@ -30,15 +30,15 @@ export function RecentsChats({
 	groupChats,
 }: RecentChatsResponse) {
 	return (
-		<Card>
+		<Card className="h-full">
 			<CardHeader>
 				<CardTitle>Recent Chats</CardTitle>
 			</CardHeader>
 			<CardContent className="grid gap-6">
 				{privateChats.map((chat) => {
-					const chatName = chat.members.find(
-						(member) => member.id !== onlineUsers[0]?.id,
-					)?.fullName;
+					const chatName =
+						chat.members.find((member) => member.id !== onlineUsers[0]?.id)
+							?.fullName || "Unnamed Chat";
 
 					const lastMessage =
 						chat.messages[0]?.text?.length > 20
@@ -48,7 +48,7 @@ export function RecentsChats({
 					return (
 						<Link
 							key={chat.id}
-							href={routes.chats.privateChat(chat.id)}
+							href={routes.chats.privateChat(chat.id, chatName)}
 							className="flex items-center justify-between space-x-4"
 						>
 							<div className="flex items-center space-x-4">
