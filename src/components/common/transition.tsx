@@ -2,12 +2,9 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
+import type { PropsWithChildren } from "react";
 
-export function Transition({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+export function Transition({ children }: Readonly<PropsWithChildren>) {
 	const pathname = usePathname();
 
 	return (
