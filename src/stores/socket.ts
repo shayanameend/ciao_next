@@ -33,6 +33,7 @@ onMount(socketStore, () => {
 		socketStore.setKey("error", null);
 
 		toast({
+			variant: "success",
 			title: "Socket Connection",
 			description: "Connected",
 		});
@@ -45,6 +46,7 @@ onMount(socketStore, () => {
 		socketStore.setKey("error", error?.message || "Connection Error");
 
 		toast({
+			variant: "error",
 			title: "Socket Error",
 			description: error,
 		});
@@ -56,6 +58,7 @@ onMount(socketStore, () => {
 		socketStore.setKey("error", error?.message || "Unknown Error");
 
 		toast({
+			variant: "error",
 			title: "Socket Error",
 			description: error,
 		});
@@ -67,6 +70,7 @@ onMount(socketStore, () => {
 		socketStore.setKey("isConnected", false);
 
 		toast({
+			variant: "error",
 			title: "Socket Disconnection",
 			description: "Disconnected",
 		});
