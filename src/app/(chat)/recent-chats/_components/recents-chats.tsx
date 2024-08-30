@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDownIcon, Loader2 } from "lucide-react";
+import { ChevronDownIcon, Loader2Icon } from "lucide-react";
 import { default as Link } from "next/link";
 import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
@@ -44,7 +44,7 @@ export function RecentsChats({
 			<CardContent className="grid gap-6">
 				{!isJoined && !error ? (
 					<div className="flex items-center justify-center h-full">
-						<Loader2 className="h-4 w-4 animate-spin" />
+						<Loader2Icon className="h-4 w-4 animate-spin" />
 					</div>
 				) : (
 					<>
@@ -68,7 +68,7 @@ export function RecentsChats({
 										<Avatar className="h-8 w-8">
 											<AvatarFallback>
 												{chatName
-													.split(" ")
+													.split("%20")
 													.map((n) => n[0])
 													.join("")}
 											</AvatarFallback>

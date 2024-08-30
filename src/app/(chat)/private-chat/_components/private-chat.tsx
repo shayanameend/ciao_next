@@ -1,6 +1,6 @@
-import { Loader2, Send } from "lucide-react";
+import { Loader2Icon, SendIcon } from "lucide-react";
 import { useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
+import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
@@ -25,7 +25,7 @@ export function PrivateChat({ name, isJoined, error, room }: PrivateChatProps) {
 					<Avatar>
 						<AvatarFallback>
 							{name
-								.split(" ")
+								.split("%20")
 								.map((n) => n[0])
 								.join("")}
 						</AvatarFallback>
@@ -39,7 +39,7 @@ export function PrivateChat({ name, isJoined, error, room }: PrivateChatProps) {
 				<div className="space-y-4">
 					{!isJoined && !error ? (
 						<div className="flex items-center justify-center h-full">
-							<Loader2 className="h-4 w-4 animate-spin" />
+							<Loader2Icon className="h-4 w-4 animate-spin" />
 						</div>
 					) : (
 						<>
@@ -70,7 +70,7 @@ export function PrivateChat({ name, isJoined, error, room }: PrivateChatProps) {
 						onChange={(event) => setInput(event.target.value)}
 					/>
 					<Button type="submit" size="icon" disabled={inputLength === 0}>
-						<Send className="h-4 w-4" />
+						<SendIcon className="h-4 w-4" />
 						<span className="sr-only">Send</span>
 					</Button>
 				</form>
