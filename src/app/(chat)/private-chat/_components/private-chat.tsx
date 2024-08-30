@@ -1,4 +1,4 @@
-import { Send } from "lucide-react";
+import { Loader2, Send } from "lucide-react";
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
@@ -9,10 +9,11 @@ import type { PrivateChatRoomResponse } from "~/validators/chat.validators";
 
 interface PrivateChatProps {
 	name: string;
+	isJoined: boolean;
 	room: PrivateChatRoomResponse["room"];
 }
 
-export function PrivateChat({ name, room }: PrivateChatProps) {
+export function PrivateChat({ name, isJoined, room }: PrivateChatProps) {
 	const [input, setInput] = useState("");
 	const inputLength = input.trim().length;
 
@@ -35,20 +36,28 @@ export function PrivateChat({ name, room }: PrivateChatProps) {
 			</CardHeader>
 			<CardContent className="space-y-4">
 				<div className="space-y-4">
-					{(room?.messages ?? []).map((message) => (
-						<div
-							key={message.id}
-							className={cn(
-								"flex w-max max-w-[75%] flex-col gap-2 rounded-lg px-3 py-2 text-sm",
-								// biome-ignore lint/correctness/noConstantCondition: <for testing>
-								true
-									? "ml-auto bg-primary text-primary-foreground"
-									: "bg-muted",
-							)}
-						>
-							{message.text}
+					{!isJoined ? (
+						<div className="flex items-center justify-center h-full">
+							<Loader2 className="h-4 w-4 animate-spin" />
 						</div>
-					))}
+					) : (
+						<>
+							{(room?.messages ?? []).map((message) => (
+								<div
+									key={message.id}
+									className={cn(
+										"flex w-max max-w-[75%] flex-col gap-2 rounded-lg px-3 py-2 text-sm",
+										// biome-ignore lint/correctness/noConstantCondition: <for testing>
+										true
+											? "ml-auto bg-primary text-primary-foreground"
+											: "bg-muted",
+									)}
+								>
+									{message.text}
+								</div>
+							))}
+						</>
+					)}
 				</div>
 				<form className="flex w-full items-center space-x-2">
 					<Input
