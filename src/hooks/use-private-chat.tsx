@@ -8,6 +8,7 @@ import {
 	updatePrivateChatMessages,
 } from "~/stores/private-chat";
 import { socketStore } from "~/stores/socket";
+import { PrivateChatRoomResponse } from "~/validators/chat.validators";
 
 export function usePrivateChat({ roomId }: { roomId: string }) {
 	const { isConnected, error, instance } = useStore(socketStore);
@@ -32,24 +33,34 @@ export function usePrivateChat({ roomId }: { roomId: string }) {
 
 	useEffect(() => {
 		if (instance && isConnected && !isJoined) {
-			privateChatStore.setKey("isJoined", true);
+			(async () => {
+				try {
+					const { data, error } = await instance.emitWithAck(
+						events.privateChat.room.join,
+						{
+							roomId,
+						},
+					);
 
-			instance
-				.emitWithAck(events.privateChat.room.join, {
-					roomId,
-				})
-				.then(({ data, error }) => {
 					if (error) {
 						throw new Error(error);
 					}
 
+					privateChatStore.setKey("isJoined", true);
+
 					updatePrivateChat(data);
-				})
-				.catch((error) => {
+				} catch (error) {
 					privateChatStore.setKey("isJoined", false);
 
 					console.error(error);
-				});
+
+					if (error instanceof Error) {
+						socketStore.setKey("error", error.message);
+					}
+
+					socketStore.setKey("error", "Something went wrong");
+				}
+			})();
 		}
 
 		return () => {
