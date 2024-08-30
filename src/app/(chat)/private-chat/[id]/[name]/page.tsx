@@ -7,11 +7,11 @@ import { PrivateChat } from "../../_components/private-chat";
 export default function PrivateChatPage() {
 	const { id, name } = useParams<{ id: string; name: string }>();
 
-	const { isJoined, room } = usePrivateChat({ roomId: id });
+	const { isJoined, error, room } = usePrivateChat({ roomId: id });
 
 	return (
 		<section className="py-6 px-4 h-screen">
-			<PrivateChat name={name} isJoined={isJoined} room={room} />
+			<PrivateChat name={name} isJoined={isJoined} error={error} room={room} />
 		</section>
 	);
 }

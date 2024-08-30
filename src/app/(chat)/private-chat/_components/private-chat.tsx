@@ -10,10 +10,11 @@ import type { PrivateChatRoomResponse } from "~/validators/chat.validators";
 interface PrivateChatProps {
 	name: string;
 	isJoined: boolean;
+	error: string | null;
 	room: PrivateChatRoomResponse["room"];
 }
 
-export function PrivateChat({ name, isJoined, room }: PrivateChatProps) {
+export function PrivateChat({ name, isJoined, error, room }: PrivateChatProps) {
 	const [input, setInput] = useState("");
 	const inputLength = input.trim().length;
 
@@ -36,7 +37,7 @@ export function PrivateChat({ name, isJoined, room }: PrivateChatProps) {
 			</CardHeader>
 			<CardContent className="space-y-4">
 				<div className="space-y-4">
-					{!isJoined ? (
+					{!isJoined && !error ? (
 						<div className="flex items-center justify-center h-full">
 							<Loader2 className="h-4 w-4 animate-spin" />
 						</div>

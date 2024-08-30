@@ -26,10 +26,12 @@ const options = [
 
 interface RecentsChatsProps extends RecentChatsResponse {
 	isJoined: boolean;
+	error: string | null;
 }
 
 export function RecentsChats({
 	isJoined,
+	error,
 	onlineUsers,
 	privateChats,
 	groupChats,
@@ -40,7 +42,7 @@ export function RecentsChats({
 				<CardTitle>Recent Chats</CardTitle>
 			</CardHeader>
 			<CardContent className="grid gap-6">
-				{!isJoined ? (
+				{!isJoined && !error ? (
 					<div className="flex items-center justify-center h-full">
 						<Loader2 className="h-4 w-4 animate-spin" />
 					</div>
