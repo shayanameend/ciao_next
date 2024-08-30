@@ -1,7 +1,7 @@
 import { map } from "nanostores";
 import type {
-	PrivateChatRoomResponse,
 	Message,
+	PrivateChatRoomResponse,
 } from "~/validators/chat.validators";
 
 export const privateChatStore = map<{

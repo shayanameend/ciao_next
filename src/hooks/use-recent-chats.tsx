@@ -35,16 +35,20 @@ export function useRecentChats() {
 
 	useEffect(() => {
 		if (instance && isConnected && !isJoined) {
-			recentChatsStore.setKey("isJoined", true);
+			setTimeout(() => {
+				instance.emit(events.recentChats.room.join);
 
-			instance.emit(events.recentChats.room.join);
+				setTimeout(() => {
+					recentChatsStore.setKey("isJoined", true);
+				}, 500);
+			}, 500);
 		}
 
 		return () => {
 			if (instance && isConnected && isJoined) {
-				recentChatsStore.setKey("isJoined", false);
-
 				instance.emit(events.recentChats.room.leave);
+
+				recentChatsStore.setKey("isJoined", false);
 			}
 		};
 	}, [instance, isConnected, isJoined]);

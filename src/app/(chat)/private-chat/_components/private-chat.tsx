@@ -1,15 +1,10 @@
 import { Send } from "lucide-react";
-import { cn } from "~/lib/utils";
+import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
-import {
-	Card,
-	CardContent,
-	CardFooter,
-	CardHeader,
-} from "~/components/ui/card";
+import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
-import { useState } from "react";
+import { cn } from "~/lib/utils";
 import type { PrivateChatRoomResponse } from "~/validators/chat.validators";
 
 interface PrivateChatProps {
@@ -18,7 +13,6 @@ interface PrivateChatProps {
 }
 
 export function PrivateChat({ name, room }: PrivateChatProps) {
-	const [messages, setMessages] = useState([...(room?.messages ?? [])]);
 	const [input, setInput] = useState("");
 	const inputLength = input.trim().length;
 
@@ -41,7 +35,7 @@ export function PrivateChat({ name, room }: PrivateChatProps) {
 			</CardHeader>
 			<CardContent className="space-y-4">
 				<div className="space-y-4">
-					{messages.map((message) => (
+					{(room?.messages ?? []).map((message) => (
 						<div
 							key={message.id}
 							className={cn(

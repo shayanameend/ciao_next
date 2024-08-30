@@ -29,8 +29,11 @@ onMount(socketStore, () => {
 	socket.on(events.socket.connect, () => {
 		console.log("socket connected");
 
-		socketStore.setKey("isConnected", true);
 		socketStore.setKey("error", null);
+
+		setTimeout(() => {
+			socketStore.setKey("isConnected", true);
+		}, 500);
 
 		toast({
 			variant: "success",
@@ -42,8 +45,8 @@ onMount(socketStore, () => {
 	socket.on(events.socket.connectError, (error) => {
 		console.error(error);
 
-		socketStore.setKey("isConnected", false);
 		socketStore.setKey("error", error?.message || "Connection Error");
+		socketStore.setKey("isConnected", false);
 
 		toast({
 			variant: "error",

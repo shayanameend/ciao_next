@@ -33,7 +33,7 @@ export function usePrivateChat({ roomId }: { roomId: string }) {
 
 	useEffect(() => {
 		if (instance && isConnected && !isJoined) {
-			(async () => {
+			setTimeout(async () => {
 				try {
 					const { data, error } = await instance.emitWithAck(
 						events.privateChat.room.join,
@@ -46,7 +46,9 @@ export function usePrivateChat({ roomId }: { roomId: string }) {
 						throw new Error(error);
 					}
 
-					privateChatStore.setKey("isJoined", true);
+					setTimeout(() => {
+						privateChatStore.setKey("isJoined", true);
+					}, 500);
 
 					updatePrivateChat(data);
 				} catch (error) {
@@ -60,16 +62,16 @@ export function usePrivateChat({ roomId }: { roomId: string }) {
 
 					socketStore.setKey("error", "Something went wrong");
 				}
-			})();
+			}, 500);
 		}
 
 		return () => {
 			if (instance && isConnected && isJoined) {
-				privateChatStore.setKey("isJoined", false);
-
 				instance.emit(events.privateChat.room.leave, {
 					roomId,
 				});
+
+				privateChatStore.setKey("isJoined", false);
 			}
 		};
 	}, [instance, isConnected, isJoined, roomId]);
