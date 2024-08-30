@@ -17,8 +17,8 @@ axios.interceptors.response.use(
 			cookies().set("token", `Bearer ${response.data.data.token}`, {
 				httpOnly: true,
 				secure: process.env.NODE_ENV === "production",
-				sameSite: "strict",
 				maxAge: 30 * 24 * 60 * 60,
+				sameSite: "strict",
 			});
 		}
 
