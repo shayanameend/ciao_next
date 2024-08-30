@@ -19,9 +19,10 @@ onMount(socketStore, () => {
 	}
 
 	const socket = io("http://192.168.100.85:8080", {
-		extraHeaders: {
-			token: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjRiYmM4LWNhOGItNDMzNS1hZmM1LWVmYjFkNzRkMzQyZiIsImVtYWlsIjoiY2lhbzNAeW9wbWFpbC5jb20iLCJ0b2tlblR5cGUiOiJ2ZXJpZmljYXRpb24iLCJkZXZpY2VUb2tlbiI6InF3ZXJ0eXVpb3AiLCJkZXZpY2VUeXBlIjoid2ViIiwiaWF0IjoxNzI0NzYwMjc0fQ.mmgHwPWUsjaWcTG7E3OEwqOBIVKK63AXta96EyJZIgo"}`,
-		},
+		withCredentials: true,
+		// extraHeaders: {
+		// 	token: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjRiYmM4LWNhOGItNDMzNS1hZmM1LWVmYjFkNzRkMzQyZiIsImVtYWlsIjoiY2lhbzNAeW9wbWFpbC5jb20iLCJ0b2tlblR5cGUiOiJ2ZXJpZmljYXRpb24iLCJkZXZpY2VUb2tlbiI6InF3ZXJ0eXVpb3AiLCJkZXZpY2VUeXBlIjoid2ViIiwiaWF0IjoxNzI0NzYwMjc0fQ.mmgHwPWUsjaWcTG7E3OEwqOBIVKK63AXta96EyJZIgo"}`,
+		// },
 	});
 
 	socketStore.setKey("instance", socket);
@@ -48,7 +49,7 @@ onMount(socketStore, () => {
 		toast({
 			variant: "error",
 			title: "Socket Error",
-			description: error,
+			description: error?.message || "Connection Error",
 		});
 	});
 
@@ -60,7 +61,7 @@ onMount(socketStore, () => {
 		toast({
 			variant: "error",
 			title: "Socket Error",
-			description: error,
+			description: error?.message || "Unknown Error",
 		});
 	});
 
