@@ -27,6 +27,7 @@ export async function signUp({
 				deviceToken,
 			},
 		);
+
 		return response.data;
 	} catch (error) {
 		console.error(error);
@@ -41,6 +42,7 @@ export async function signUp({
 				}
 			);
 		}
+
 		return {
 			meta: {
 				message: "An unexpected error occurred",
@@ -59,6 +61,7 @@ export async function verifyOtp({
 			otpCode,
 			verificationType,
 		});
+
 		return response.data;
 	} catch (error) {
 		console.error(error);
@@ -73,6 +76,7 @@ export async function verifyOtp({
 				}
 			);
 		}
+
 		return {
 			meta: {
 				message: "An unexpected error occurred",
@@ -91,6 +95,7 @@ export async function createProfile({ fullName, dob }: CreateProfileBodyType) {
 				dob,
 			},
 		);
+
 		return response.data;
 	} catch (error) {
 		console.error(error);
@@ -105,6 +110,7 @@ export async function createProfile({ fullName, dob }: CreateProfileBodyType) {
 				}
 			);
 		}
+
 		return {
 			meta: {
 				message: "An unexpected error occurred",
@@ -127,6 +133,7 @@ export async function signIn({
 			deviceType,
 			deviceToken,
 		});
+
 		return response.data;
 	} catch (error) {
 		console.error(error);
@@ -141,6 +148,7 @@ export async function signIn({
 				}
 			);
 		}
+
 		return {
 			meta: {
 				message: "An unexpected error occurred",
