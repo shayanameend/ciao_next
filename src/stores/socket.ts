@@ -70,11 +70,12 @@ onMount(socketStore, () => {
 	socket.on(events.socket.disconnect, () => {
 		console.log("socket disconnected");
 
+		socketStore.setKey("error", null);
 		socketStore.setKey("isConnected", false);
 
 		toast({
 			variant: "error",
-			title: "Socket Disconnection",
+			title: "Socket Connection",
 			description: "Disconnected",
 		});
 	});
