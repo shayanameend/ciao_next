@@ -53,7 +53,12 @@ export function RecentsChats({
 						>
 							<div className="flex items-center space-x-4">
 								<Avatar className="h-8 w-8">
-									<AvatarFallback>{chatName?.[0]}</AvatarFallback>
+									<AvatarFallback>
+										{chatName
+											.split(" ")
+											.map((n) => n[0])
+											.join("")}
+									</AvatarFallback>
 								</Avatar>
 								<div>
 									<p className="text-sm font-medium leading-none">{chatName}</p>
