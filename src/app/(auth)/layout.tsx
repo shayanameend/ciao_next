@@ -1,25 +1,25 @@
 "use client";
 
 import { useStore } from "@nanostores/react";
-import { useEffect, type PropsWithChildren } from "react";
+import { type PropsWithChildren, useEffect } from "react";
 import { WavyBackground } from "~/components/ui/wavy-background";
 import { primaryFont } from "~/lib/fonts";
 import { socketStore } from "~/stores/socket";
 
 export default function AuthLayout({ children }: Readonly<PropsWithChildren>) {
-	const { instance } = useStore(socketStore);
+	const { instance, isConnected } = useStore(socketStore);
 
 	useEffect(() => {
-		if (instance) {
+		if (instance && isConnected) {
 			instance.disconnect();
 		}
 
 		return () => {
-			if (instance) {
+			if (instance && !isConnected) {
 				instance.connect();
 			}
 		};
-	}, [instance]);
+	}, [instance, isConnected]);
 
 	return (
 		<WavyBackground

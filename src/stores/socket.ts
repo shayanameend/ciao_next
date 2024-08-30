@@ -30,10 +30,7 @@ onMount(socketStore, () => {
 		console.log("socket connected");
 
 		socketStore.setKey("error", null);
-
-		setTimeout(() => {
-			socketStore.setKey("isConnected", true);
-		}, 500);
+		socketStore.setKey("isConnected", true);
 
 		toast({
 			variant: "success",
