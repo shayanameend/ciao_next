@@ -16,7 +16,11 @@ export function updatePrivateChat(chat: PrivateChatRoomResponse) {
 	privateChatStore.setKey("room", chat.room);
 }
 
-export function updatePrivateChatMessages(messages: Message[]) {
+export function updatePrivateChatMessages({
+	messages,
+}: {
+	messages: Message[];
+}) {
 	const room = privateChatStore.get().room;
 
 	if (!room) {
@@ -29,7 +33,11 @@ export function updatePrivateChatMessages(messages: Message[]) {
 	});
 }
 
-export function updatePrivateChatMessage(message: Message) {
+export function updatePrivateChatMessage({
+	message,
+}: {
+	message: Message;
+}) {
 	const room = privateChatStore.get().room;
 
 	if (!room) {

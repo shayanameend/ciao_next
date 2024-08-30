@@ -1,10 +1,13 @@
+import { useStore } from "@nanostores/react";
 import { Loader2Icon, SendIcon } from "lucide-react";
 import { useState } from "react";
 import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
+import { default as events } from "~/lib/events";
 import { cn } from "~/lib/utils";
+import { socketStore } from "~/stores/socket";
 import type { PrivateChatRoomResponse } from "~/validators/chat.validators";
 
 interface PrivateChatProps {
@@ -15,8 +18,22 @@ interface PrivateChatProps {
 }
 
 export function PrivateChat({ name, isJoined, error, room }: PrivateChatProps) {
+	const { instance } = useStore(socketStore);
 	const [input, setInput] = useState("");
 	const inputLength = input.trim().length;
+
+	const handleSendMessage = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+
+		if (instance && room && inputLength > 0) {
+			instance.emit(events.privateChat.message.send, {
+				roomId: room.id,
+				text: input,
+			});
+
+			setInput("");
+		}
+	};
 
 	return (
 		<Card className="h-full flex flex-col justify-between">
@@ -60,7 +77,10 @@ export function PrivateChat({ name, isJoined, error, room }: PrivateChatProps) {
 						</>
 					)}
 				</div>
-				<form className="flex w-full items-center space-x-2">
+				<form
+					onSubmit={handleSendMessage}
+					className="flex w-full items-center space-x-2"
+				>
 					<Input
 						id="message"
 						placeholder="Type your message..."
